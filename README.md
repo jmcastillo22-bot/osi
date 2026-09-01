@@ -156,3 +156,28 @@ neto de 52.457,30 €:
 
 Los 5.000 €/mes netos exigirían facturar 104.404,75 € en el año, por encima de
 lo que la sociedad genera.
+
+## Estructura confirmada
+
+- Al cliente irlandés le factura **la SL** (B22831267), sin IVA, por inversión
+  del sujeto pasivo. No pasa por el modelo 130 personal.
+- El contribuyente factura **solo a la SL**, con 21 % de IVA y 7 % de retención
+  (tipo reducido de nuevo autónomo, art. 101.5 LIRPF).
+- La SL está dada de alta en el ROI con NIF-IVA validado en VIES.
+
+### Calendario de cierre
+
+| Fecha | Quién | Acción |
+|---|---|---|
+| 12 sep | SL | Factura 11.000 € a Irlanda → 3T, **casilla 59** y modelo 349 |
+| 30 sep | Tú | Emites 40.000 € + 8.400 € IVA a la SL (servicio ya prestado) |
+| 1–20 oct | Tú | Modelo 130 del 3T: **3.450,88 €** · Modelo 303 del 3T: **6.924,39 €** |
+| 1–20 oct | SL | Modelo 349 del 3T (11.000 €) y modelo 111 (2.800 € de retención) |
+| 12 oct | SL | Factura 17.000 € a Irlanda → 4T |
+| 4T | Tú | Hasta **21.579,81 €** más a la SL para agotar su margen |
+| ene 2027 | SL | 303 del 4T: solicitar devolución del crédito de IVA (~15.000 €) |
+| nov 2027 | SL | **Modelo 232** de operaciones vinculadas |
+
+Atención: la facturación irlandesa va en la **casilla 59**, no en la 122 donde
+figura la actividad interior. Si se declara en la 122 el modelo 349 no cuadrará
+en el cruce VIES.
