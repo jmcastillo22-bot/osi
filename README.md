@@ -14,9 +14,9 @@ python3 ratio.py --ejemplo    # ratio de endeudamiento, demo
 python3 ratio.py datos.json   # ratio de endeudamiento, con tus cifras
 ```
 
-`objetivo_3t.py` lleva incorporadas las cifras de los modelos 303 de 2026
-(1T y 2T) de José María Castillo como autónomo y de OSI Global Consulting SL.
-`ratio.py` es la herramienta genérica, y necesita el modelo 130.
+`objetivo_3t.py` lleva incorporadas las cifras reales de 2026 (1T y 2T):
+modelos 130 y 303 de José María Castillo como autónomo, y modelo 303 de
+OSI Global Consulting SL. `ratio.py` es la herramienta genérica.
 
 Rellena `datos.json` con las casillas de tus modelos. Sin dependencias
 externas: solo Python 3.
@@ -92,13 +92,16 @@ Ambos deben converger en la misma base imponible.
 
 ## Hallazgos del ejercicio 2026 (1S)
 
-- Como autónomo facturaste **15.000 € en el 1T y 0 € en el 2T**. El
-  rendimiento neto del semestre queda en unos **5.046 €**, es decir
-  **841 €/mes** — muy lejos de los 5.000 €/mes que se quieren acreditar.
+- Como autónomo facturaste **15.000 € en el 1T y 0 € en el 2T**: la casilla 01
+  del 130 no se mueve entre trimestres. El 2T solo suma gastos, así que el
+  rendimiento neto acumulado **baja** de 11.424,14 € a **8.641,08 €**, es decir
+  **1.440 €/mes** — lejos de los 5.000 €/mes que se quieren acreditar.
+- Los gastos del 130 (6.358,92 €) superan en solo **5,10 €** a las compras con
+  IVA del 303 (6.353,82 €). Como la cuota de RETA no soporta IVA, la diferencia
+  debería ser de varios miles: **posiblemente no se está deduciendo**.
 - La SL factura toda su actividad por **inversión del sujeto pasivo**
-  (casilla 122, IVA devengado cero): 50.131,33 € en el semestre.
-- Descontando los costes con terceros, la SL deja unos **33.116 € por
-  semestre** disponibles para retribuirte, ~16.558 € por trimestre.
-- Para cerrar 2026 con una media de 5.000 €/mes netos harían falta unos
-  **90.562 € facturados solo en el 3T**, frente a los ~16.558 € que da la
-  sociedad al ritmo actual.
+  (casilla 122, IVA devengado cero): 50.131,33 € en el semestre. Descontando
+  los costes con terceros deja unos **33.116 € por semestre**, ~16.558 € por
+  trimestre, disponibles para retribución.
+- Para cerrar 2026 con una media de 5.000 €/mes netos harían falta
+  **85.169 € facturados solo en el 3T**, frente a esos ~16.558 €.
