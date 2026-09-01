@@ -10,6 +10,7 @@ para alcanzar un neto objetivo después de IRPF.
 python3 objetivo_3t.py        # analisis con los 303 de 2026 ya cargados
 python3 objetivo_3t.py 750    # idem, fijando otra cuota de RETA mensual
 
+python3 modelo_232.py         # umbrales del 232 y coste de esquivarlos
 python3 factura_40000.py      # efecto de la factura de 40.000 del 30 de septiembre
 python3 cierre_3t.py          # cierre del 3T: fechas, devengo y pago fraccionado
 python3 cliente_irlanda.py    # efecto del nuevo cliente irlandes
@@ -94,6 +95,7 @@ Ambos deben converger en la misma base imponible.
 | Fichero          | Contenido |
 |------------------|-----------|
 | `objetivo_3t.py` | Análisis del 3T 2026 con las cifras reales de los 130 y 303 |
+| `modelo_232.py` | Umbrales del modelo 232 y coste de quedarse por debajo |
 | `factura_40000.py` | Efecto de la factura de 40.000 € del 30 de septiembre |
 | `cierre_3t.py` | Cierre del 3T: calendario, devengo y pago fraccionado |
 | `cliente_irlanda.py` | Efecto del nuevo cliente irlandés sobre 2026 |
