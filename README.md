@@ -10,6 +10,7 @@ para alcanzar un neto objetivo después de IRPF.
 python3 objetivo_3t.py        # analisis con los 303 de 2026 ya cargados
 python3 objetivo_3t.py 750    # idem, fijando otra cuota de RETA mensual
 
+python3 escenario_2s.py       # efecto de las facturas previstas del 2S
 python3 maximo_hipoteca.py    # cifra realista para maximizar la hipoteca
 python3 capacidad.py          # capacidad de endeudamiento (ratio de partida 0%)
 python3 capacidad.py 0.30     # idem, con otro umbral bancario
@@ -90,6 +91,7 @@ Ambos deben converger en la misma base imponible.
 | Fichero          | Contenido |
 |------------------|-----------|
 | `objetivo_3t.py` | Análisis del 3T 2026 con las cifras reales de los 130 y 303 |
+| `escenario_2s.py` | Efecto de las facturas previstas del segundo semestre |
 | `maximo_hipoteca.py` | Cifra realista de facturación para maximizar la hipoteca |
 | `capacidad.py`   | Cuota y capital financiables sin deuda previa |
 | `ratio.py`       | Ratio de endeudamiento genérico (necesita el 130) |
