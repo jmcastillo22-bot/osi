@@ -10,6 +10,7 @@ para alcanzar un neto objetivo después de IRPF.
 python3 objetivo_3t.py        # analisis con los 303 de 2026 ya cargados
 python3 objetivo_3t.py 750    # idem, fijando otra cuota de RETA mensual
 
+python3 cierre_3t.py          # cierre del 3T: fechas, devengo y pago fraccionado
 python3 cliente_irlanda.py    # efecto del nuevo cliente irlandes
 python3 escenario_2s.py       # efecto de las facturas previstas del 2S
 python3 maximo_hipoteca.py    # cifra realista para maximizar la hipoteca
@@ -92,6 +93,7 @@ Ambos deben converger en la misma base imponible.
 | Fichero          | Contenido |
 |------------------|-----------|
 | `objetivo_3t.py` | Análisis del 3T 2026 con las cifras reales de los 130 y 303 |
+| `cierre_3t.py` | Cierre del 3T: calendario, devengo y pago fraccionado |
 | `cliente_irlanda.py` | Efecto del nuevo cliente irlandés sobre 2026 |
 | `escenario_2s.py` | Efecto de las facturas previstas del segundo semestre |
 | `maximo_hipoteca.py` | Cifra realista de facturación para maximizar la hipoteca |
@@ -110,6 +112,9 @@ Ambos deben converger en la misma base imponible.
   IVA del 303 (6.353,82 €). Con una cuota de RETA de 88 €/mes (tarifa plana),
   la diferencia debería rondar los 528 € en el semestre: **no se está
   deduciendo**, unos 1.056 € anuales de gasto sin aplicar.
+- La casilla 06 del 130 (1.050,00 €) es el **7 % de retención** sobre los 15.000 €
+  facturados: el tipo reducido de nuevo autónomo (art. 101.5 LIRPF), aplicable
+  el año de alta y los dos siguientes.
 - La SL factura toda su actividad por **inversión del sujeto pasivo**
   (casilla 122, IVA devengado cero): 50.131,33 € en el semestre. Descontando
   los costes con terceros deja unos **33.116 € por semestre**, ~16.558 € por
