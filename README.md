@@ -10,6 +10,7 @@ para alcanzar un neto objetivo después de IRPF.
 python3 objetivo_3t.py        # analisis con los 303 de 2026 ya cargados
 python3 objetivo_3t.py 750    # idem, fijando otra cuota de RETA mensual
 
+python3 maximo_hipoteca.py    # cifra realista para maximizar la hipoteca
 python3 capacidad.py          # capacidad de endeudamiento (ratio de partida 0%)
 python3 capacidad.py 0.30     # idem, con otro umbral bancario
 
@@ -89,6 +90,7 @@ Ambos deben converger en la misma base imponible.
 | Fichero          | Contenido |
 |------------------|-----------|
 | `objetivo_3t.py` | Análisis del 3T 2026 con las cifras reales de los 130 y 303 |
+| `maximo_hipoteca.py` | Cifra realista de facturación para maximizar la hipoteca |
 | `capacidad.py`   | Cuota y capital financiables sin deuda previa |
 | `ratio.py`       | Ratio de endeudamiento genérico (necesita el 130) |
 | `irpf.py`        | Escalas IRPF y funciones fiscales |
@@ -101,8 +103,9 @@ Ambos deben converger en la misma base imponible.
   rendimiento neto acumulado **baja** de 11.424,14 € a **8.641,08 €**, es decir
   **1.440 €/mes** — lejos de los 5.000 €/mes que se quieren acreditar.
 - Los gastos del 130 (6.358,92 €) superan en solo **5,10 €** a las compras con
-  IVA del 303 (6.353,82 €). Como la cuota de RETA no soporta IVA, la diferencia
-  debería ser de varios miles: **posiblemente no se está deduciendo**.
+  IVA del 303 (6.353,82 €). Con una cuota de RETA de 88 €/mes (tarifa plana),
+  la diferencia debería rondar los 528 € en el semestre: **no se está
+  deduciendo**, unos 1.056 € anuales de gasto sin aplicar.
 - La SL factura toda su actividad por **inversión del sujeto pasivo**
   (casilla 122, IVA devengado cero): 50.131,33 € en el semestre. Descontando
   los costes con terceros deja unos **33.116 € por semestre**, ~16.558 € por
@@ -124,3 +127,17 @@ acreditable, no la deuda previa:
 
 El techo de la SL es lo máximo que da la estructura actual destinando a
 retribución todo el margen de la sociedad.
+
+## Cifra realista para la hipoteca
+
+Con la SL facturando lo que factura, el techo es facturar **25.615,57 € en el
+3T y otro tanto en el 4T** (66.231,14 € en el año), que dejan un rendimiento
+neto de 52.457,30 €:
+
+| Base que use el banco | €/mes | Cuota al 35 % | Capital al 3 % / 30 años |
+|---|---|---|---|
+| Neto después de IRPF | 3.200,09 € | 1.120,03 € | 265.660 € |
+| Rendimiento neto / 12 | 4.371,44 € | 1.530,00 € | 362.901 € |
+
+Los 5.000 €/mes netos exigirían facturar 104.404,75 € en el año, por encima de
+lo que la sociedad genera.
