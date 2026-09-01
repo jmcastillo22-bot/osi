@@ -10,6 +10,9 @@ para alcanzar un neto objetivo después de IRPF.
 python3 objetivo_3t.py        # analisis con los 303 de 2026 ya cargados
 python3 objetivo_3t.py 750    # idem, fijando otra cuota de RETA mensual
 
+python3 capacidad.py          # capacidad de endeudamiento (ratio de partida 0%)
+python3 capacidad.py 0.30     # idem, con otro umbral bancario
+
 python3 ratio.py --ejemplo    # ratio de endeudamiento, demo
 python3 ratio.py datos.json   # ratio de endeudamiento, con tus cifras
 ```
@@ -85,7 +88,8 @@ Ambos deben converger en la misma base imponible.
 
 | Fichero          | Contenido |
 |------------------|-----------|
-| `objetivo_3t.py` | Análisis del 3T 2026 con las cifras reales de los 303 |
+| `objetivo_3t.py` | Análisis del 3T 2026 con las cifras reales de los 130 y 303 |
+| `capacidad.py`   | Cuota y capital financiables sin deuda previa |
 | `ratio.py`       | Ratio de endeudamiento genérico (necesita el 130) |
 | `irpf.py`        | Escalas IRPF y funciones fiscales |
 | `datos.json`     | Plantilla para `ratio.py` |
@@ -105,3 +109,18 @@ Ambos deben converger en la misma base imponible.
   trimestre, disponibles para retribución.
 - Para cerrar 2026 con una media de 5.000 €/mes netos harían falta
   **85.169 € facturados solo en el 3T**, frente a esos ~16.558 €.
+
+## Capacidad de endeudamiento
+
+Sin cuotas de deuda vivas el ratio de partida es **0 %**, así que todo el
+margen del umbral bancario está disponible y el límite lo pone el ingreso
+acreditable, no la deuda previa:
+
+| Escenario | Neto/mes | Cuota máx. (35 %) | Capital al 3 % / 30 años |
+|---|---|---|---|
+| Ritmo real del 1S | 1.234,29 € | 432,00 € | 102.466 € |
+| Techo de la SL hoy | 3.255,53 € | 1.139,44 € | 270.262 € |
+| Objetivo declarado | 5.000,00 € | 1.750,00 € | 415.081 € |
+
+El techo de la SL es lo máximo que da la estructura actual destinando a
+retribución todo el margen de la sociedad.
