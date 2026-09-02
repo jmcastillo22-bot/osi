@@ -183,3 +183,13 @@ lo que la sociedad genera.
 Atención: la facturación irlandesa va en la **casilla 59**, no en la 122 donde
 figura la actividad interior. Si se declara en la 122 el modelo 349 no cuadrará
 en el cruce VIES.
+
+## Informe fiscal, versión 2 (02/09/2026)
+
+`informes/informe_fiscal_osi_v2.html` corrige la versión 1 del informe fiscal
+sobre las autoliquidaciones presentadas. Retira la premisa de un segundo cobro
+de 17.100 € en junio (17.100 € es el cobro neto de una única factura de
+15.000 €: 15.000 + 3.150 de IVA − 1.050 de retención), las complementarias del
+2T y las retenciones de 2.100 €, y recalcula el 3T con la factura de 40.000 €
+del 30/09 y el plan de financiación. `informes/cifras_v2.json` contiene todos
+los importes del informe tal como salen de `irpf.py`.
