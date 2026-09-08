@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>La Casa de Hormigón · Prototipo Maqueta A</title>
+<style>
+  :root{
+    --papel:#f7f6f4; --tinta:#1b1a18; --tinta-2:#4a4844; --suave:#8a867f;
+    --linea:#dedad4; --linea-2:#eceae6; --blanco:#ffffff;
+    --calido:#a8763f;   /* particulares · el sueño */
+    --frio:#3d5566;     /* profesionales · obra gris */
+    --hormigon:#b9b4ac;
+    --aviso:#8a5a00; --aviso-bg:#fbf1d6;
+    --ok:#2f6b4a; --ok-bg:#e6f2ea;
+    --radio:3px;
+    --fuente:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--fuente);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%}
+  h1,h2,h3{line-height:1.15;margin:0;font-weight:600;letter-spacing:-.01em}
+  a{color:inherit}
+
+  /* ---------- aviso de prototipo ---------- */
+  .cinta{background:var(--aviso-bg);color:var(--aviso);font-size:12.5px;padding:7px 16px;
+    text-align:center;border-bottom:1px solid #e8dcb8}
+  .cinta b{font-weight:700}
+
+  /* ---------- barra ---------- */
+  .barra{position:sticky;top:0;z-index:40;background:rgba(247,246,244,.94);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+  .barra .in{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;
+    align-items:center;gap:18px}
+  .marca{font-weight:700;letter-spacing:.14em;font-size:12.5px;text-transform:uppercase;
+    text-decoration:none;white-space:nowrap}
+  .marca span{display:block;font-size:9.5px;letter-spacing:.2em;color:var(--suave);font-weight:400}
+  .conmutador{display:flex;gap:2px;margin-left:auto;background:var(--linea-2);
+    padding:3px;border-radius:var(--radio)}
+  .conmutador button{border:0;background:transparent;font:inherit;font-size:13px;
+    padding:7px 15px;border-radius:2px;cursor:pointer;color:var(--tinta-2);white-space:nowrap}
+  .conmutador button[aria-current="true"]{background:var(--blanco);color:var(--tinta);
+    font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.07)}
+  .wa{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#05301a;
+    text-decoration:none;font-size:13px;font-weight:600;padding:9px 15px;border-radius:var(--radio)}
+  .wa em{font-style:normal;font-weight:400;font-size:11.5px;opacity:.8}
+  @media (max-width:860px){
+    .conmutador{order:3;margin:0;width:100%}
+    .conmutador button{flex:1}
+    .wa em{display:none}
+  }
+
+  /* ---------- portada · doble puerta ---------- */
+  #portada{min-height:calc(100vh - 96px);display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media (max-width:860px){#portada{grid-template-columns:1fr;min-height:0}}
+  .puerta{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:38px;min-height:440px;cursor:pointer;border:0;font:inherit;text-align:left;
+    color:var(--blanco);overflow:hidden}
+  .puerta .fondo{position:absolute;inset:0;transition:transform .5s ease}
+  .puerta:hover .fondo,.puerta:focus-visible .fondo{transform:scale(1.03)}
+  .puerta .velo{position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.28) 45%,rgba(0,0,0,.12) 100%)}
+  .puerta .txt{position:relative;z-index:2;max-width:420px}
+  .puerta .eti{font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;
+    margin:0 0 10px}
+  .puerta h2{font-size:clamp(28px,4vw,42px);margin:0 0 10px}
+  .puerta p{margin:0 0 20px;font-size:15.5px;opacity:.92;line-height:1.5}
+  .puerta .ir{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px;
+    border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:3px}
+  .puerta:hover .ir{border-bottom-color:var(--blanco)}
+
+  /* marcador de imagen pendiente */
+  .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;color:#fff;font-size:11.5px;line-height:1.45;letter-spacing:.03em;
+    padding:16px}
+  .ph .et{font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:10px;
+    background:rgba(0,0,0,.35);padding:4px 9px;border-radius:2px;margin-bottom:9px}
+  .ph code{font-size:11px;opacity:.85;background:rgba(0,0,0,.25);padding:1px 5px;border-radius:2px}
+  .ph-calido{background:
+    repeating-linear-gradient(135deg,#c99a68 0 14px,#bd8d5c 14px 28px)}
+  .ph-frio{background:
+    repeating-linear-gradient(135deg,#5a7183 0 14px,#4e6474 14px 28px)}
+  .ph-gris{background:
+    repeating-linear-gradient(135deg,#bdb8b0 0 12px,#b2ada5 12px 24px);color:#4a4844}
+  .ph-gris .et{background:rgba(255,255,255,.55);color:#3a3833}
+  .ph-gris code{background:rgba(255,255,255,.45);color:#3a3833}
+
+  /* ---------- secciones ---------- */
+  .vista{display:none}
+  .vista.activa{display:block}
+  .env{max-width:1180px;margin:0 auto;padding:0 20px}
+  section.blq{padding:70px 0;border-top:1px solid var(--linea)}
+  section.blq:first-of-type{border-top:0}
+  .cab{max-width:620px;margin:0 0 34px}
+  .cab .eti{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--suave);
+    margin:0 0 12px}
+  .cab h2{font-size:clamp(24px,3vw,33px);margin:0 0 12px}
+  .cab p{margin:0;color:var(--tinta-2);font-size:16.5px}
+  .acento-calido .cab .eti{color:var(--calido)}
+  .acento-frio .cab .eti{color:var(--frio)}
+
+  /* héroe de recorrido */
+  .heroe{position:relative;min-height:380px;display:flex;align-items:flex-end;
+    padding:44px 0;color:var(--blanco);overflow:hidden}
+  .heroe .fondo{position:absolute;inset:0}
+  .heroe .fondo.ph{justify-content:flex-start;padding-top:26px}
+  .heroe .velo{position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,.15))}
+  .heroe .env{position:relative;z-index:2;width:100%}
+  .heroe h1{font-size:clamp(30px,4.4vw,50px);margin:0 0 12px;max-width:720px}
+  .heroe p{margin:0;font-size:17px;max-width:560px;opacity:.93}
+
+  /* rejillas */
+  .rej{display:grid;gap:22px}
+  .rej-3{grid-template-columns:repeat(3,1fr)}
+  .rej-2{grid-template-columns:repeat(2,1fr)}
+  @media (max-width:900px){.rej-3{grid-template-columns:1fr 1fr}}
+  @media (max-width:640px){.rej-3,.rej-2{grid-template-columns:1fr}}
+
+  .tarj{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    overflow:hidden;display:flex;flex-direction:column}
+  .tarj .img{aspect-ratio:4/3}
+  .tarj .cuerpo{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1}
+  .tarj h3{font-size:19px;margin:0 0 4px}
+  .tarj .sub{font-size:12.5px;color:var(--suave);margin:0 0 14px;letter-spacing:.04em;
+    text-transform:uppercase}
+  .tarj .precio{font-size:15px;font-weight:600;margin:0 0 14px}
+  .tarj .precio small{display:block;font-weight:400;font-size:12px;color:var(--suave);
+    letter-spacing:.02em;text-transform:none;margin-top:3px}
+  .tarj ul{margin:0 0 18px;padding:0;list-style:none;font-size:14px;color:var(--tinta-2)}
+  .tarj ul li{padding:6px 0;border-bottom:1px solid var(--linea-2);display:flex;
+    justify-content:space-between;gap:12px}
+  .tarj ul li:last-child{border-bottom:0}
+  .tarj ul li b{font-weight:600;color:var(--tinta)}
+  .tarj .pie{margin-top:auto}
+
+  /* botones */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;
+    font:inherit;font-size:14.5px;font-weight:600;padding:13px 22px;border-radius:var(--radio);
+    cursor:pointer;text-decoration:none;transition:opacity .15s}
+  .btn:hover{opacity:.87}
+  .btn-calido{background:var(--calido);color:var(--blanco)}
+  .btn-frio{background:var(--frio);color:var(--blanco)}
+  .btn-linea{background:transparent;border:1px solid var(--tinta);color:var(--tinta)}
+  .btn-bloque{width:100%}
+  .candado{font-size:12.5px;font-weight:400;opacity:.75}
+
+  /* descargables */
+  .desc{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    padding:20px;display:flex;flex-direction:column;gap:12px}
+  .desc h3{font-size:16.5px;margin:0}
+  .desc p{margin:0;font-size:14px;color:var(--tinta-2);flex:1}
+  .desc .meta{font-size:11.5px;color:var(--suave);letter-spacing:.06em;text-transform:uppercase}
+
+  /* desplegables */
+  details{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    margin:0 0 10px}
+  details[open]{border-color:var(--hormigon)}
+  summary{padding:16px 20px;cursor:pointer;font-weight:600;font-size:15.5px;list-style:none;
+    display:flex;justify-content:space-between;align-items:center;gap:14px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:21px;font-weight:400;color:var(--suave);line-height:1}
+  details[open] summary::after{content:"–"}
+  details .con{padding:0 20px 20px;font-size:14.5px;color:var(--tinta-2)}
+  details .con table{width:100%;border-collapse:collapse;font-size:14px}
+  details .con td{padding:7px 0;border-bottom:1px solid var(--linea-2);vertical-align:top}
+  details .con td:first-child{color:var(--suave);width:42%;padding-right:16px}
+  details .con tr:last-child td{border-bottom:0}
+
+  /* casos de obra */
+  .caso{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    overflow:hidden}
+  .caso .img{aspect-ratio:16/10}
+  .caso .cuerpo{padding:20px}
+  .caso h3{font-size:18px;margin:0 0 14px}
+  .caso dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:14px}
+  .caso dt{color:var(--suave)}
+  .caso dd{margin:0;font-weight:600;text-align:right}
+
+  /* reseñas */
+  .resena{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    padding:24px;display:flex;flex-direction:column}
+  .resena .estrellas{color:var(--calido);letter-spacing:2px;margin:0 0 12px;font-size:14px}
+  .resena blockquote{margin:0 0 16px;font-size:15.5px;line-height:1.6;flex:1}
+  .resena .firma{font-size:13px;color:var(--suave);margin:0}
+  .resena .firma b{display:block;color:var(--tinta);font-size:14px;font-weight:600}
+
+  /* pendiente de dato */
+  .pend{background:var(--aviso-bg);color:var(--aviso);border:1px dashed #d9c188;
+    border-radius:2px;padding:2px 7px;font-size:12px;font-weight:600;white-space:nowrap;
+    display:inline-block}
+
+  /* franja de contacto */
+  .franja{background:var(--tinta);color:var(--papel);padding:60px 0}
+  .franja h2{font-size:clamp(23px,3vw,31px);margin:0 0 12px;max-width:600px}
+  .franja p{margin:0 0 26px;opacity:.8;max-width:520px;font-size:16px}
+  .franja .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .franja .btn-linea{border-color:rgba(255,255,255,.45);color:var(--papel)}
+
+  /* pie */
+  footer.pie{border-top:1px solid var(--linea);padding:34px 0;font-size:13px;color:var(--suave)}
+  footer.pie .env{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* ---------- formulario multi-paso ---------- */
+  .capa{position:fixed;inset:0;z-index:60;background:rgba(20,19,17,.65);
+    display:none;align-items:center;justify-content:center;padding:20px}
+  .capa.abierta{display:flex}
+  .dialogo{background:var(--papel);border-radius:var(--radio);width:100%;max-width:620px;
+    max-height:92vh;overflow:auto;position:relative}
+  .dialogo .top{position:sticky;top:0;background:var(--papel);padding:20px 26px 14px;
+    border-bottom:1px solid var(--linea);z-index:2}
+  .dialogo .top .fila{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .dialogo .top h3{font-size:15px;font-weight:600}
+  .cerrar{border:0;background:transparent;font-size:24px;line-height:1;cursor:pointer;
+    color:var(--suave);padding:0 4px}
+  .progreso{height:3px;background:var(--linea);border-radius:2px;margin-top:14px;overflow:hidden}
+  .progreso i{display:block;height:100%;background:var(--tinta);transition:width .3s ease;width:0}
+  .paso{padding:28px 26px 26px}
+  .paso .num{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--suave);
+    margin:0 0 10px}
+  .paso h4{font-size:22px;margin:0 0 6px;font-weight:600;line-height:1.25}
+  .paso .ayuda{margin:0 0 22px;color:var(--tinta-2);font-size:14.5px}
+  .ops{display:grid;gap:10px}
+  .ops.dos{grid-template-columns:1fr 1fr}
+  @media (max-width:520px){.ops.dos{grid-template-columns:1fr}}
+  .op{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    padding:16px 18px;text-align:left;font:inherit;cursor:pointer;display:flex;
+    align-items:center;gap:14px;transition:border-color .15s,background .15s}
+  .op:hover{border-color:var(--suave)}
+  .op[aria-pressed="true"]{border-color:var(--tinta);background:var(--blanco);
+    box-shadow:inset 0 0 0 1px var(--tinta)}
+  .op .ico{width:34px;height:34px;flex:0 0 34px;border-radius:2px;background:var(--linea-2);
+    display:flex;align-items:center;justify-content:center;font-size:16px}
+  .op .tx b{display:block;font-size:15px;font-weight:600}
+  .op .tx span{font-size:13px;color:var(--suave)}
+  .campos{display:grid;gap:14px}
+  .campo label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
+  .campo input{width:100%;padding:12px 14px;border:1px solid var(--linea);
+    border-radius:var(--radio);font:inherit;font-size:15px;background:var(--blanco)}
+  .campo input:focus{outline:2px solid var(--tinta);outline-offset:-1px}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--tinta-2);
+    line-height:1.5}
+  .consent input{margin-top:3px;flex:0 0 auto}
+  .navp{display:flex;gap:10px;align-items:center;margin-top:24px}
+  .atras{border:0;background:transparent;font:inherit;font-size:14px;color:var(--suave);
+    cursor:pointer;padding:8px 4px}
+  .resumen{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);
+    padding:14px 16px;margin:0 0 20px;font-size:13.5px}
+  .resumen div{display:flex;justify-content:space-between;gap:14px;padding:5px 0;
+    border-bottom:1px solid var(--linea-2)}
+  .resumen div:last-child{border-bottom:0}
+  .resumen span{color:var(--suave)}
+  .resumen b{font-weight:600;text-align:right}
+  .fin{text-align:center;padding:44px 26px 40px}
+  .fin .marca-ok{width:52px;height:52px;border-radius:50%;background:var(--ok-bg);color:var(--ok);
+    display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 18px}
+  .fin h4{font-size:23px;margin:0 0 10px}
+  .fin p{margin:0 auto 8px;max-width:400px;color:var(--tinta-2);font-size:15px}
+  .nota-osi{background:var(--aviso-bg);color:var(--aviso);font-size:12px;padding:10px 26px;
+    border-top:1px solid #e8dcb8}
+</style>
+</head>
+<body>
+
+<div class="cinta">
+  <b>Prototipo · Maqueta A</b> — entorno de pruebas, no publicar. Los bloques rayados son imágenes que sustituye Javi; lo marcado en ámbar son datos pendientes del cliente.
+</div>
+
+<header class="barra">
+  <div class="in">
+    <a class="marca" href="#" onclick="ir('portada');return false">La Casa de Hormigón<span>CVH Precast</span></a>
+    <nav class="conmutador" id="conmutador" hidden>
+      <button type="button" data-vista="particulares" onclick="ir('particulares')">Particulares</button>
+      <button type="button" data-vista="profesionales" onclick="ir('profesionales')">Profesionales</button>
+    </nav>
+    <a class="wa" href="#" onclick="return false">WhatsApp <em>· respuesta en 5 min</em></a>
+  </div>
+</header>
+
+<!-- ============ PORTADA · DOBLE PUERTA ============ -->
+<div class="vista activa" id="v-portada">
+  <div id="portada">
+    <button class="puerta" onclick="ir('particulares')">
+      <div class="fondo ph ph-calido">
+        <span class="et">Imagen · Javi</span>
+        Chalet terminado al atardecer, «el sueño»<br>
+        <code>particulares-portada.jpg</code> · horizontal, mín. 1800 px
+      </div>
+      <div class="velo"></div>
+      <div class="txt">
+        <p class="eti">Quiero mi casa</p>
+        <h2>Particulares</h2>
+        <p>Modelos con precio cerrado, plazos reales y acabados que puedes ver antes de decidir.</p>
+        <span class="ir">Ver modelos y precios &rarr;</span>
+      </div>
+    </button>
+
+    <button class="puerta" onclick="ir('profesionales')">
+      <div class="fondo ph ph-frio">
+        <span class="et">Imagen · Javi</span>
+        Estructura en ejecución, «obra gris»<br>
+        <code>profesionales-portada.jpg</code> · horizontal, mín. 1800 px
+      </div>
+      <div class="velo"></div>
+      <div class="txt">
+        <p class="eti">Trabajo con hormigón</p>
+        <h2>Profesionales</h2>
+        <p>Estructuras, envolventes y muros de contención para estudios, promotoras y constructoras.</p>
+        <span class="ir">Ver soluciones y obras &rarr;</span>
+      </div>
+    </button>
+  </div>
+</div>
+
+<!-- ============ PARTICULARES ============ -->
+<div class="vista acento-calido" id="v-particulares">
+
+  <div class="heroe">
+    <div class="fondo ph ph-calido">
+      <span class="et">Imagen · Javi</span>
+      Interior cuidado o fachada terminada<br>
+      <code>particulares-hero.jpg</code> · horizontal, mín. 2000 px
+    </div>
+    <div class="velo"></div>
+    <div class="env">
+      <h1>Tu casa de hormigón, con precio y plazo desde el primer día</h1>
+      <p>Elige un modelo, ajusta los acabados y sabe lo que cuesta antes de firmar nada.</p>
+    </div>
+  </div>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Modelos</p>
+        <h2>Casas listas para empezar</h2>
+        <p>Cada modelo incluye plano de distribución, memoria de calidades y precio de partida. Los acabados se ajustan contigo.</p>
+      </div>
+      <div class="rej rej-3">
+
+        <article class="tarj">
+          <div class="img ph ph-calido"><span class="et">Imagen · Javi</span>Render o foto del modelo Origen<br><code>modelo-origen.jpg</code></div>
+          <div class="cuerpo">
+            <h3>Origen</h3>
+            <p class="sub">120 m² · una planta</p>
+            <p class="precio">Desde 220.000 €<small>IVA no incluido · sin parcela ni licencias</small></p>
+            <ul>
+              <li>Superficie <b>120 m²</b></li>
+              <li>Dormitorios <b>3</b></li>
+              <li>Plazo de ejecución <b class="pend">dato pendiente</b></li>
+            </ul>
+            <div class="pie"><button class="btn btn-calido btn-bloque" onclick="abrirDescarga('Dossier del modelo Origen')">Descargar el dossier</button></div>
+          </div>
+        </article>
+
+        <article class="tarj">
+          <div class="img ph ph-calido"><span class="et">Imagen · Javi</span>Render o foto del modelo de 150 m²<br><code>modelo-150.jpg</code></div>
+          <div class="cuerpo">
+            <h3>Modelo 150</h3>
+            <p class="sub">150 m² · una planta</p>
+            <p class="precio"><span class="pend">precio pendiente</span><small>Javi confirma el precio de partida</small></p>
+            <ul>
+              <li>Superficie <b>150 m²</b></li>
+              <li>Dormitorios <b class="pend">pendiente</b></li>
+              <li>Plazo de ejecución <b class="pend">dato pendiente</b></li>
+            </ul>
+            <div class="pie"><button class="btn btn-calido btn-bloque" onclick="abrirDescarga('Dossier del modelo 150')">Descargar el dossier</button></div>
+          </div>
+        </article>
+
+        <article class="tarj">
+          <div class="img ph ph-calido"><span class="et">Imagen · Javi</span>Tercer modelo del catálogo<br><code>modelo-3.jpg</code></div>
+          <div class="cuerpo">
+            <h3><span class="pend">Modelo pendiente</span></h3>
+            <p class="sub">Superficie por confirmar</p>
+            <p class="precio"><span class="pend">precio pendiente</span><small>Hueco reservado para el tercer modelo de la ficha</small></p>
+            <ul>
+              <li>Superficie <b class="pend">pendiente</b></li>
+              <li>Dormitorios <b class="pend">pendiente</b></li>
+              <li>Plazo de ejecución <b class="pend">pendiente</b></li>
+            </ul>
+            <div class="pie"><button class="btn btn-calido btn-bloque" onclick="abrirDescarga('Dossier del tercer modelo')">Descargar el dossier</button></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Acabados</p>
+        <h2>Cómo queda por dentro</h2>
+        <p>Interiores de casas ya entregadas. Ninguna imagen de catálogo genérico.</p>
+      </div>
+      <div class="rej rej-3">
+        <div class="img ph ph-calido" style="aspect-ratio:1;border-radius:3px"><span class="et">Imagen · Javi</span>Salón terminado<br><code>interior-salon.jpg</code></div>
+        <div class="img ph ph-calido" style="aspect-ratio:1;border-radius:3px"><span class="et">Imagen · Javi</span>Cocina<br><code>interior-cocina.jpg</code></div>
+        <div class="img ph ph-calido" style="aspect-ratio:1;border-radius:3px"><span class="et">Imagen · Javi</span>Baño o dormitorio<br><code>interior-bano.jpg</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Club La Casa de Hormigón</p>
+        <h2>Descarga los catálogos completos</h2>
+        <p>Planos de distribución, memorias de calidades y precios por modelo. Te pedimos el correo para enviártelos y avisarte de novedades.</p>
+      </div>
+      <div class="rej rej-3">
+        <div class="desc">
+          <p class="meta">PDF · Catálogo</p>
+          <h3>Catálogo de modelos con precios</h3>
+          <p>Los tres modelos, con superficies, distribuciones y precio de partida.</p>
+          <button class="btn btn-linea" onclick="abrirDescarga('Catálogo de modelos con precios')">Descargar <span class="candado">· pide correo</span></button>
+        </div>
+        <div class="desc">
+          <p class="meta">PDF · Planos</p>
+          <h3>Planos de distribución</h3>
+          <p>Plantas acotadas de cada modelo, en formato imprimible.</p>
+          <button class="btn btn-linea" onclick="abrirDescarga('Planos de distribución')">Descargar <span class="candado">· pide correo</span></button>
+        </div>
+        <div class="desc">
+          <p class="meta">PDF · Calidades</p>
+          <h3>Memoria de acabados</h3>
+          <p>Qué incluye el precio y qué opciones puedes elegir.</p>
+          <button class="btn btn-linea" onclick="abrirDescarga('Memoria de acabados')">Descargar <span class="candado">· pide correo</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Clientes</p>
+        <h2>Lo que dicen quienes ya viven en una</h2>
+        <p>Reseñas de clientes con casa entregada.</p>
+      </div>
+      <div class="rej rej-3">
+        <div class="resena">
+          <p class="estrellas">★★★★★</p>
+          <blockquote><span class="pend">Reseña pendiente</span> — texto real de un cliente con casa entregada.</blockquote>
+          <p class="firma"><b><span class="pend">Nombre</span></b>Modelo y localidad</p>
+        </div>
+        <div class="resena">
+          <p class="estrellas">★★★★★</p>
+          <blockquote><span class="pend">Reseña pendiente</span> — conviene una que hable del plazo cumplido.</blockquote>
+          <p class="firma"><b><span class="pend">Nombre</span></b>Modelo y localidad</p>
+        </div>
+        <div class="resena">
+          <p class="estrellas">★★★★★</p>
+          <blockquote><span class="pend">Reseña pendiente</span> — conviene una que hable del trato durante la obra.</blockquote>
+          <p class="firma"><b><span class="pend">Nombre</span></b>Modelo y localidad</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja">
+    <div class="env">
+      <h2>Cuéntanos en qué punto estás</h2>
+      <p>Cuatro preguntas rápidas y te decimos si tu idea encaja, qué costaría y en cuánto tiempo. Sin compromiso.</p>
+      <div class="btns">
+        <button class="btn btn-calido" onclick="abrirForm('particular')">Empezar</button>
+        <a class="btn btn-linea" href="#" onclick="return false">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PROFESIONALES ============ -->
+<div class="vista acento-frio" id="v-profesionales">
+
+  <div class="heroe">
+    <div class="fondo ph ph-frio">
+      <span class="et">Imagen · Javi</span>
+      Estructura o envolvente en ejecución, sin acabados<br>
+      <code>profesionales-hero.jpg</code> · horizontal, mín. 2000 px
+    </div>
+    <div class="velo"></div>
+    <div class="env">
+      <h1>Estructura industrializada de hormigón, con plazo que se cumple</h1>
+      <p>Trabajamos con estudios de arquitectura, promotoras y constructoras desde el anteproyecto.</p>
+    </div>
+  </div>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Soluciones</p>
+        <h2>Qué fabricamos y montamos</h2>
+        <p>Prefabricación en planta y montaje en obra. El plazo se acorta porque la estructura no depende del tiempo que haga.</p>
+      </div>
+      <div class="rej rej-3">
+        <article class="tarj">
+          <div class="img ph ph-frio"><span class="et">Imagen · Javi</span>Colocación de forjados<br><code>solucion-estructura.jpg</code></div>
+          <div class="cuerpo"><h3>Estructura</h3><p class="sub">Pilares, forjados y núcleos</p>
+            <p style="margin:0;font-size:14.5px;color:var(--tinta-2)">Montaje con grúa sobre replanteo, sin encofrado en obra.</p></div>
+        </article>
+        <article class="tarj">
+          <div class="img ph ph-frio"><span class="et">Imagen · Javi</span>Panel de envolvente<br><code>solucion-envolvente.jpg</code></div>
+          <div class="cuerpo"><h3>Envolvente</h3><p class="sub">Fachada portante y aislada</p>
+            <p style="margin:0;font-size:14.5px;color:var(--tinta-2)">Panel acabado de fábrica: cierra el edificio en días.</p></div>
+        </article>
+        <article class="tarj">
+          <div class="img ph ph-frio"><span class="et">Imagen · Javi</span>Muro de contención limpio<br><code>solucion-muros.jpg</code></div>
+          <div class="cuerpo"><h3>Muros de contención</h3><p class="sub">Contención de tierras</p>
+            <p style="margin:0;font-size:14.5px;color:var(--tinta-2)">Acabado visto, sin repasos, listo para trasdosar.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Obras</p>
+        <h2>Tres obras, con sus números</h2>
+        <p>Plazo real de ejecución, superficie construida y rango de coste. Sin cifras redondeadas hacia arriba.</p>
+      </div>
+      <div class="rej rej-3">
+        <article class="caso">
+          <div class="img ph ph-frio"><span class="et">Imagen · Javi</span>Bonanza en ejecución<br><code>obra-bonanza.jpg</code></div>
+          <div class="cuerpo"><h3>Bonanza</h3>
+            <dl><dt>Superficie</dt><dd class="pend">pendiente</dd>
+                <dt>Plazo</dt><dd class="pend">pendiente</dd>
+                <dt>Rango de coste</dt><dd class="pend">pendiente</dd></dl></div>
+        </article>
+        <article class="caso">
+          <div class="img ph ph-frio"><span class="et">Imagen · Javi</span>Vivienda piloto de Valdemorillo<br><code>obra-valdemorillo.jpg</code></div>
+          <div class="cuerpo"><h3>Vivienda piloto · Valdemorillo</h3>
+            <dl><dt>Superficie</dt><dd class="pend">pendiente</dd>
+                <dt>Plazo</dt><dd class="pend">pendiente</dd>
+                <dt>Rango de coste</dt><dd class="pend">pendiente</dd></dl></div>
+        </article>
+        <article class="caso">
+          <div class="img ph ph-frio"><span class="et">Imagen · Javi</span>Estructuras para promotora<br><code>obra-promotora.jpg</code></div>
+          <div class="cuerpo"><h3>Estructuras para promotoras</h3>
+            <dl><dt>Superficie</dt><dd class="pend">pendiente</dd>
+                <dt>Plazo</dt><dd class="pend">pendiente</dd>
+                <dt>Rango de coste</dt><dd class="pend">pendiente</dd></dl></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Detalle técnico</p>
+        <h2>Los datos, cuando los necesites</h2>
+        <p>Abre solo lo que te interese. Nada de leerse un máster para encontrar una cifra.</p>
+      </div>
+
+      <details>
+        <summary>Memoria de calidades · estructura</summary>
+        <div class="con">
+          <table><tbody>
+            <tr><td>Hormigón</td><td class="pend">tipo y resistencia pendientes</td></tr>
+            <tr><td>Armado</td><td class="pend">pendiente</td></tr>
+            <tr><td>Luces máximas</td><td class="pend">pendiente</td></tr>
+            <tr><td>Tolerancias de montaje</td><td class="pend">pendiente</td></tr>
+          </tbody></table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Muros de contención · soluciones</summary>
+        <div class="con">
+          <table><tbody>
+            <tr><td>Alturas de contención</td><td class="pend">pendiente</td></tr>
+            <tr><td>Acabado</td><td>Visto de molde, sin repasos en obra</td></tr>
+            <tr><td>Drenaje e impermeabilización</td><td class="pend">pendiente</td></tr>
+            <tr><td>Rendimiento de montaje</td><td class="pend">ml/día pendiente</td></tr>
+          </tbody></table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Certificaciones y ensayos</summary>
+        <div class="con">
+          <table><tbody>
+            <tr><td>Marcado y certificaciones</td><td class="pend">Javi confirma cuáles se pueden citar</td></tr>
+            <tr><td>Control de producción</td><td class="pend">pendiente</td></tr>
+            <tr><td>Ensayos disponibles</td><td class="pend">pendiente</td></tr>
+          </tbody></table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Proceso de industrialización, paso a paso</summary>
+        <div class="con">
+          <p style="margin:0 0 12px">De la validación del proyecto al montaje en obra.</p>
+          <div class="img ph ph-frio" style="aspect-ratio:16/7;border-radius:3px">
+            <span class="et">Vídeo · Javi</span>Timelapse de industrialización<br><code>timelapse-planta.mp4</code>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="blq">
+    <div class="env">
+      <div class="cab">
+        <p class="eti">Club Profesional</p>
+        <h2>Documentación técnica</h2>
+        <p>Fichas y dosieres técnicos. Pedimos una validación por correo antes de dar acceso: esta documentación no está abierta al público.</p>
+      </div>
+      <div class="rej rej-2">
+        <div class="desc">
+          <p class="meta">PDF · Ficha técnica</p>
+          <h3>Ficha técnica de estructura</h3>
+          <p>Secciones, luces, cargas admisibles y detalles de unión.</p>
+          <button class="btn btn-frio" onclick="abrirDescarga('Ficha técnica de estructura', true)">Solicitar acceso <span class="candado">· validación por correo</span></button>
+        </div>
+        <div class="desc">
+          <p class="meta">PDF · Dossier</p>
+          <h3>Dossier de muros de contención</h3>
+          <p>Tipologías, alturas, drenaje y rendimientos de montaje.</p>
+          <button class="btn btn-frio" onclick="abrirDescarga('Dossier de muros de contención', true)">Solicitar acceso <span class="candado">· validación por correo</span></button>
+        </div>
+        <div class="desc">
+          <p class="meta">PDF · Certificaciones</p>
+          <h3>Certificaciones y ensayos</h3>
+          <p>Documentación de control de producción y ensayos.</p>
+          <button class="btn btn-frio" onclick="abrirDescarga('Certificaciones y ensayos', true)">Solicitar acceso <span class="candado">· validación por correo</span></button>
+        </div>
+        <div class="desc">
+          <p class="meta">PDF · Especificaciones</p>
+          <h3>Especificaciones de materiales</h3>
+          <p>Hormigones, armados y acabados disponibles.</p>
+          <button class="btn btn-frio" onclick="abrirDescarga('Especificaciones de materiales', true)">Solicitar acceso <span class="candado">· validación por correo</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="franja">
+    <div class="env">
+      <h2>Cuéntanos el proyecto</h2>
+      <p>Cuatro preguntas y te decimos si encaja con nuestra planta, en qué plazo y con qué rango de coste.</p>
+      <div class="btns">
+        <button class="btn btn-frio" onclick="abrirForm('profesional')">Empezar</button>
+        <a class="btn btn-linea" href="#" onclick="return false">Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="pie">
+  <div class="env">
+    <span>La Casa de Hormigón · CVH Precast, S.L.</span>
+    <span>Prototipo Maqueta A · entorno de pruebas de OSI</span>
+  </div>
+</footer>
+
+<!-- ============ FORMULARIO MULTI-PASO ============ -->
+<div class="capa" id="capa" role="dialog" aria-modal="true" aria-labelledby="tituloForm">
+  <div class="dialogo">
+    <div class="top">
+      <div class="fila">
+        <h3 id="tituloForm">Cuéntanos tu proyecto</h3>
+        <button class="cerrar" onclick="cerrarForm()" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="progreso"><i id="barra"></i></div>
+    </div>
+    <div id="contenido"></div>
+    <p class="nota-osi">Prototipo: no envía nada. En producción cada envío entra en el CRM con su ORIGEN y dispara el aviso de respuesta en menos de 5 minutos.</p>
+  </div>
+</div>
+
+<script>
+/* ---------- navegación entre recorridos ---------- */
+function ir(vista){
+  document.querySelectorAll('.vista').forEach(v => v.classList.remove('activa'));
+  document.getElementById('v-' + vista).classList.add('activa');
+  const con = document.getElementById('conmutador');
+  con.hidden = (vista === 'portada');
+  con.querySelectorAll('button').forEach(b =>
+    b.setAttribute('aria-current', String(b.dataset.vista === vista)));
+  window.scrollTo(0, 0);
+}
+
+/* ---------- guiones del formulario ---------- */
+const GUIONES = {
+  particular: {
+    titulo: 'Cuéntanos tu proyecto',
+    pasos: [
+      { clave:'momento', pregunta:'¿En qué punto estás?',
+        ayuda:'Nos sirve para saber si hablamos de precios o de plazos.',
+        ops:[
+          {v:'parcela',  i:'📍', t:'Ya tengo parcela',        d:'Comprada o heredada'},
+          {v:'buscando', i:'🔎', t:'Estoy buscando parcela',  d:'Aún sin decidir'},
+          {v:'info',     i:'💭', t:'Solo me estoy informando',d:'Sin fecha por ahora'}
+        ]},
+      { clave:'licencia', pregunta:'¿Tienes proyecto o licencia?',
+        ayuda:'Si ya hay proyecto visado, podemos darte precio cerrado.',
+        soloSi:(r)=>r.momento==='parcela',
+        ops:[
+          {v:'visado',   i:'📐', t:'Proyecto visado',     d:'Listo para construir'},
+          {v:'tramite',  i:'⏳', t:'En trámite',          d:'Licencia solicitada'},
+          {v:'nada',     i:'⬜', t:'Todavía no',          d:'Empezamos de cero'}
+        ]},
+      { clave:'superficie', pregunta:'¿Qué tamaño de casa buscas?',
+        ayuda:'Una orientación basta: se ajusta después.',
+        ops:[
+          {v:'-120',    i:'🏠', t:'Hasta 120 m²',    d:'Modelo Origen'},
+          {v:'120-150', i:'🏡', t:'Entre 120 y 150 m²', d:''},
+          {v:'150-200', i:'🏘️', t:'Entre 150 y 200 m²', d:''},
+          {v:'+200',    i:'🏛️', t:'Más de 200 m²',   d:'Proyecto a medida'}
+        ]},
+      { clave:'plazo', pregunta:'¿Cuándo te gustaría empezar?',
+        ayuda:'Con esto priorizamos la respuesta.',
+        ops:[
+          {v:'-6',   i:'⚡', t:'En menos de 6 meses', d:'Tengo prisa'},
+          {v:'6-12', i:'📅', t:'Entre 6 y 12 meses',  d:''},
+          {v:'+12',  i:'🗓️', t:'Más adelante',       d:'Más de un año'},
+          {v:'nofecha', i:'❔', t:'Sin fecha todavía', d:''}
+        ]}
+    ],
+    campos:[
+      {n:'nombre',   e:'Nombre y apellidos', t:'text'},
+      {n:'telefono', e:'Teléfono',           t:'tel'},
+      {n:'email',    e:'Correo electrónico', t:'email'}
+    ]
+  },
+
+  profesional: {
+    titulo: 'Cuéntanos el proyecto',
+    pasos: [
+      { clave:'perfil', pregunta:'¿Cuál es tu perfil?',
+        ayuda:'Para que te responda quien puede resolverte.',
+        ops:[
+          {v:'estudio',     i:'📐', t:'Arquitecto o estudio',   d:'Proyecto en redacción'},
+          {v:'promotor',    i:'🏗️', t:'Promotor',              d:'Promoción propia'},
+          {v:'constructora',i:'🚧', t:'Constructora',           d:'Ejecución de obra'},
+          {v:'franquicia',  i:'🤝', t:'Interesado en franquicia', d:'Quiero representar la marca'}
+        ]},
+      { clave:'solucion', pregunta:'¿Qué necesitas?',
+        ayuda:'Puedes concretarlo después con nuestro técnico.',
+        ops:[
+          {v:'estructura', i:'🧱', t:'Estructura',            d:'Pilares y forjados'},
+          {v:'envolvente', i:'🪟', t:'Envolvente',            d:'Fachada portante'},
+          {v:'muros',      i:'⛰️', t:'Muros de contención',   d:'Contención de tierras'},
+          {v:'llave',      i:'🔑', t:'Vivienda completa',     d:'Llave en mano'},
+          {v:'definir',    i:'❔', t:'Aún por definir',       d:''}
+        ]},
+      { clave:'volumen', pregunta:'¿Qué volumen previsto?',
+        ayuda:'Nos dice si entra en la planificación de planta.',
+        soloSi:(r)=>r.perfil!=='franquicia',
+        ops:[
+          {v:'1',    i:'1️⃣', t:'Una unidad',      d:''},
+          {v:'2-5',  i:'🔢', t:'Entre 2 y 5',      d:''},
+          {v:'6-20', i:'📦', t:'Entre 6 y 20',     d:''},
+          {v:'+20',  i:'🏭', t:'Más de 20',        d:'Promoción grande'},
+          {v:'singular', i:'⭐', t:'Obra singular', d:'No residencial'}
+        ]},
+      { clave:'fase', pregunta:'¿En qué fase está?',
+        ayuda:'Cuanto más avanzado, más cerrado el precio que podemos dar.',
+        ops:[
+          {v:'ante',   i:'✏️', t:'Anteproyecto',        d:''},
+          {v:'basico', i:'📄', t:'Proyecto básico',     d:''},
+          {v:'ejec',   i:'✅', t:'Ejecución visado',    d:'Listo para presupuestar'},
+          {v:'licit',  i:'📊', t:'En licitación',       d:'Con fecha de entrega'}
+        ]}
+    ],
+    campos:[
+      {n:'nombre',   e:'Nombre y apellidos', t:'text'},
+      {n:'empresa',  e:'Empresa o estudio',  t:'text'},
+      {n:'telefono', e:'Teléfono',           t:'tel'},
+      {n:'email',    e:'Correo electrónico', t:'email'}
+    ]
+  }
+};
+
+/* ---------- estado ---------- */
+let guion = null, pasos = [], idx = 0, resp = {}, modoDescarga = null;
+
+function abrirForm(tipo){
+  guion = GUIONES[tipo]; resp = {}; idx = 0; modoDescarga = null;
+  document.getElementById('tituloForm').textContent = guion.titulo;
+  document.getElementById('capa').classList.add('abierta');
+  recalcular(); pintar();
+}
+
+function abrirDescarga(documento, profesional){
+  guion = GUIONES[profesional ? 'profesional' : 'particular'];
+  resp = {}; idx = 0;
+  modoDescarga = { doc: documento, profesional: !!profesional };
+  document.getElementById('tituloForm').textContent = documento;
+  document.getElementById('capa').classList.add('abierta');
+  pintarPuerta();
+}
+
+function cerrarForm(){ document.getElementById('capa').classList.remove('abierta'); }
+
+/* Los pasos con soloSi se recalculan cada vez que cambia una respuesta. */
+function recalcular(){ pasos = guion.pasos.filter(p => !p.soloSi || p.soloSi(resp)); }
+
+function progreso(p){ document.getElementById('barra').style.width = p + '%'; }
+
+/* ---------- pantallas ---------- */
+function pintar(){
+  recalcular();
+  if (idx >= pasos.length) return pintarDatos();
+  const paso = pasos[idx];
+  progreso(Math.round((idx + 1) / (pasos.length + 1) * 100));
+  document.getElementById('contenido').innerHTML = `
+    <div class="paso">
+      <p class="num">Paso ${idx + 1} de ${pasos.length + 1}</p>
+      <h4>${paso.pregunta}</h4>
+      <p class="ayuda">${paso.ayuda}</p>
+      <div class="ops${paso.ops.length > 3 ? ' dos' : ''}">
+        ${paso.ops.map(o => `
+          <button class="op" type="button" onclick="responder('${paso.clave}','${o.v}')"
+            aria-pressed="${resp[paso.clave] === o.v}">
+            <span class="ico">${o.i}</span>
+            <span class="tx"><b>${o.t}</b>${o.d ? `<span>${o.d}</span>` : ''}</span>
+          </button>`).join('')}
+      </div>
+      ${idx > 0 ? '<div class="navp"><button class="atras" onclick="atras()">&larr; Atrás</button></div>' : ''}
+    </div>`;
+}
+
+function responder(clave, valor){ resp[clave] = valor; idx++; pintar(); }
+function atras(){ if (idx > 0){ idx--; pintar(); } }
+
+function pintarDatos(){
+  progreso(88);
+  const filas = pasos.map(p => {
+    const op = p.ops.find(o => o.v === resp[p.clave]);
+    return op ? `<div><span>${p.pregunta.replace(/^¿|\?$/g,'')}</span><b>${op.t}</b></div>` : '';
+  }).join('');
+  document.getElementById('contenido').innerHTML = `
+    <div class="paso">
+      <p class="num">Último paso</p>
+      <h4>¿Cómo te localizamos?</h4>
+      <p class="ayuda">Te respondemos en menos de 5 minutos en horario comercial.</p>
+      <div class="resumen">${filas}</div>
+      <div class="campos">
+        ${guion.campos.map(c => `
+          <div class="campo">
+            <label for="c-${c.n}">${c.e}</label>
+            <input id="c-${c.n}" type="${c.t}" autocomplete="${c.t === 'tel' ? 'tel' : c.t}">
+          </div>`).join('')}
+        <label class="consent">
+          <input type="checkbox" id="consent">
+          <span>He leído y acepto la política de privacidad. Trataremos tus datos para responder a esta consulta.</span>
+        </label>
+      </div>
+      <div class="navp">
+        <button class="atras" onclick="atras()">&larr; Atrás</button>
+        <button class="btn btn-linea" style="margin-left:auto" onclick="enviar()">Enviar</button>
+      </div>
+    </div>`;
+}
+
+/* Puerta del Club: el descargable pide correo antes de cualificar. */
+function pintarPuerta(){
+  progreso(30);
+  const prof = modoDescarga.profesional;
+  document.getElementById('contenido').innerHTML = `
+    <div class="paso">
+      <p class="num">${prof ? 'Club Profesional' : 'Club La Casa de Hormigón'}</p>
+      <h4>Te lo enviamos al correo</h4>
+      <p class="ayuda">${prof
+        ? 'La documentación técnica no está abierta al público. Validamos el correo y te damos acceso.'
+        : 'Déjanos tu correo y recibes el documento al instante.'}</p>
+      <div class="campos">
+        <div class="campo">
+          <label for="c-email">Correo electrónico</label>
+          <input id="c-email" type="email" autocomplete="email">
+        </div>
+        ${prof ? `
+        <div class="campo">
+          <label for="c-empresa">Empresa o estudio</label>
+          <input id="c-empresa" type="text">
+        </div>` : ''}
+        <label class="consent">
+          <input type="checkbox" id="consent">
+          <span>Acepto recibir el documento y la política de privacidad.${prof ? '' : ' Puedes darte de baja cuando quieras.'}</span>
+        </label>
+      </div>
+      <div class="navp">
+        <button class="btn ${prof ? 'btn-frio' : 'btn-calido'}" style="margin-left:auto"
+          onclick="enviar()">${prof ? 'Solicitar acceso' : 'Recibir el documento'}</button>
+      </div>
+    </div>`;
+}
+
+function enviar(){
+  progreso(100);
+  const desc = modoDescarga;
+  document.getElementById('contenido').innerHTML = `
+    <div class="fin">
+      <div class="marca-ok">✓</div>
+      <h4>${desc ? (desc.profesional ? 'Solicitud recibida' : 'Documento en camino') : 'Recibido'}</h4>
+      <p>${desc
+        ? (desc.profesional
+            ? 'Validamos el correo y te damos acceso a la documentación en el mismo día laborable.'
+            : 'Te lo hemos enviado al correo. Revisa la carpeta de promociones si no lo ves.')
+        : 'Te llamamos en menos de 5 minutos si estamos en horario comercial. Si no, a primera hora.'}</p>
+      <p style="font-size:13px;color:var(--suave)">${desc ? desc.doc : ''}</p>
+    </div>`;
+}
+
+document.getElementById('capa').addEventListener('click', e => {
+  if (e.target.id === 'capa') cerrarForm();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarForm(); });
+</script>
+</body>
+</html>

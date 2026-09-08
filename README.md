@@ -193,3 +193,20 @@ de 17.100 € en junio (17.100 € es el cobro neto de una única factura de
 2T y las retenciones de 2.100 €, y recalcula el 3T con la factura de 40.000 €
 del 30/09 y el plan de financiación. `informes/cifras_v2.json` contiene todos
 los importes del informe tal como salen de `irpf.py`.
+
+## Documentos del programa de CVH (Casa de Hormigón)
+
+`cvh/generar_documentos.py` genera los entregables del cliente con el membrete
+estándar de OSI, reutilizando el armazón de `informe_fiscal_osi_v2.html`
+(estilos, paleta y logotipo incrustado), de modo que la marca sea idéntica en
+todos los documentos. Produce HTML y, si hay un Chromium disponible, el PDF
+correspondiente.
+
+```bash
+python3 cvh/generar_documentos.py
+```
+
+| Fichero | Contenido |
+|---|---|
+| `informes/propuesta_mantenimiento_web_cvh.html` | Propuesta de mantenimiento web: 13 plugins, política de actualizaciones, caché y buzón de avisos. Bloque de las 09:00 del 08/09 |
+| `informes/plan_ejecucion_web_cvh.html` | Plan de ejecución de la nueva estructura web (Opción A), con las ocho decisiones del 08/09, el reparto de redacción, el Go/No-Go del 10/09 y los indicadores. Bloque de las 10:00 |
